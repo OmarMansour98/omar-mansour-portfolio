@@ -1,0 +1,804 @@
+{
+  "booking": [
+    {
+      "title": "Overview",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In Q3 2024, while conducting usability tests with focus groups, one metric I analyzed was the total journey duration—the time from a user's first interaction to a successful booking. The results revealed a significant gap in journey times between guest users and logged-in patients. Both groups experienced frustration, with completion times exceeding our target. This highlighted a major opportunity to enhance the platform's most crucial flow: the patient booking experience."
+        }
+      ]
+    },
+    {
+      "title": "The Challenge",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Our usability study uncovered that the average total journey duration was 11 minutes, with the worst-case scenario reaching 17 minutes. Guest users took approximately two minutes longer than logged-in patients to complete a booking, and some users on the mobile website and in the app failed to complete the process altogether. Our objective was to streamline the experience, aiming for a total journey time of under 5 minutes."
+        }
+      ]
+    },
+    {
+      "title": "A. Analyzing the Guest User’s Journey",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The guest user journey on Vosita began on the homepage, where users would input details like their desired specialty or provider name, location, insurance, preferred date, and appointment type (in-office or virtual). Once they hit search, they’d land on the results page, which displayed a list of available doctors matching their criteria along with open time slots."
+        },
+        {
+          "type": "text",
+          "text": "However, if a guest user selected a time slot without being signed in, they’d be redirected to the login page. New users without an account would then need to locate the sign-up button to create one. After signing up, they’d have to manually log in, which would finally take them to the booking confirmation page."
+        },
+        {
+          "type": "text",
+          "text": "But here’s where things got tricky. To prevent fake bookings, users were required to verify their email address and provide a mobile number (which wasn’t collected during sign-up). Most users, unaware they could simply check their inbox in a new tab, would navigate away from the booking page to their profile settings to confirm their email. This action reset their progress, forcing them to start over: re-entering their search criteria, selecting a doctor, choosing a time slot, and confirming their mobile number through a modal wizard. Only then could they finally book their appointment."
+        },
+        {
+          "type": "text",
+          "text": "This back-and-forth created unnecessary friction and frustration, often leading users to abandon the process altogether. It became clear that simplifying and streamlining this journey was critical to improving the overall user experience."
+        }
+      ]
+    },
+    {
+      "title": "B. Breaking Down the Journey",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To tackle this, I broke the guest user journey into four key flows:"
+        },
+        {
+          "type": "text",
+          "text": "Search Bar"
+        },
+        {
+          "type": "text",
+          "text": "Search Results Page"
+        },
+        {
+          "type": "text",
+          "text": "Sign-Up/Login Flow and Credentials Confirmation"
+        },
+        {
+          "type": "text",
+          "text": "Booking Page"
+        }
+      ]
+    },
+    {
+      "title": "1. Search Bar",
+      "blocks": [
+        {
+          "type": "image",
+          "src": "assets/images/gallery12/971805e0_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Homepage search bar—before"
+        },
+        {
+          "type": "text",
+          "text": "The search bar was packed with fields: provider/specialty, location, insurance, date, and a virtual visit checkbox, followed by three buttons: search, more filters, and reset. While functional, it felt overwhelming and could use some simplification."
+        },
+        {
+          "type": "text",
+          "text": "Provider/Specialty Field: Users could type a provider’s name, but even if the provider appeared in the dropdown, clicking on them didn’t take users directly to their profile. Instead, they had to hit “search,” wait for the results page, and then click on the provider again. I wondered: why not let users go straight to the provider’s profile if they’re already selecting them from the dropdown?"
+        },
+        {
+          "type": "text",
+          "text": "Location Field: This field started blank, requiring users to manually enter their location. If they declined the browser’s GPS prompt, we defaulted to an IP-based location, which was less accurate. This led to confusion and frustration, especially for users who weren’t sure why their location wasn’t auto-populated."
+        },
+        {
+          "type": "text",
+          "text": "Insurance Selection: This was the #1 pain point, reported by about 18% of users. The process was split into two tabs: carrier and plan. Users would first select a carrier from an alphabetical list, then choose a plan. However, they could skip the carrier step entirely by clicking the “Plans” tab, which broke the UI. I wondered: why not make carrier selection more intuitive and prevent users from advancing without selecting a carrier first?"
+        },
+        {
+          "type": "text",
+          "text": "Date Field: The date field auto-filled with the current day in “MM-DD-YYYY” format. While helpful, not all users immediately recognized today’s date, so I considered making the date display clearer and more user-friendly."
+        },
+        {
+          "type": "text",
+          "text": "Virtual Visit Checkbox: This was another point of confusion. Users weren’t sure whether checking the box would include virtual visits alongside in-office appointments or show only virtual visits (it was the latter). This lack of clarity added unnecessary cognitive load."
+        },
+        {
+          "type": "text",
+          "text": "Buttons: At the end of the search bar were three identically styled buttons: search, more filters, and reset. Not only were they unlabeled (relying on hover tooltips), but the most important button—search—was placed first, followed by the less critical ones. Considering the serial position effect, I wondered whether the search button should be more prominent and placed last to guide users naturally through the flow."
+        },
+        {
+          "type": "text",
+          "text": "Mobile Web Experience: On the mobile website, the search bar stacked vertically, extending below the fold on page load. This created a jarring experience where users would hit “search” and not realize they’d navigated to a new page because the search bar looked identical on both the homepage and search results page. I believed a more compact, mobile-friendly search bar was needed to provide better visual feedback and improve usability."
+        },
+        {
+          "type": "text",
+          "text": "This analysis highlighted several opportunities to streamline the search bar and reduce cognitive load, setting the stage for a more intuitive and efficient booking experience."
+        }
+      ]
+    },
+    {
+      "title": "2. Search Results Page",
+      "blocks": [
+        {
+          "type": "image",
+          "src": "assets/images/gallery13/1fa02430_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Search results page—before"
+        },
+        {
+          "type": "text",
+          "text": "Provider cards on mobile stacked vertically, with the provider info on top and the time slot at the bottom. This resulted in long cards that occupied the entire screen. I thought compact cards that allowed two or three providers to be displayed at the same time would reduce scrolling and improve the experience."
+        }
+      ]
+    },
+    {
+      "title": "3. Sign-Up/Login Flow and Credentials Confirmation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Clicking on a time slot in the search results led to the login page. Unregistered users had to navigate through sign-up, log in again, then return to the booking page, only to verify their email addresses and add their mobile numbers, resulting in significant drop-offs and a convoluted process."
+        },
+        {
+          "type": "text",
+          "text": "I realized most guests wouldn’t be registered on Vosita, so it made more sense to direct them to sign up by default instead of asking them to log in. I also thought redirecting away from the search results page was unnecessary and proposed displaying a sign-up modal when a guest selected a time slot."
+        },
+        {
+          "type": "text",
+          "text": "Additionally, I questioned the need for email verification. Patients signing up with a mobile number could use it for login as well. I believed the sign-up fields could be fewer, and that we could verify mobile numbers or emails during sign-up. This way, after creating accounts, users would be automatically signed in and redirected to the booking page, where they’d only need to confirm appointment details without additional verification steps."
+        },
+        {
+          "type": "text",
+          "text": "This reimagined flow aimed to eliminate unnecessary steps, reduce friction, and create a seamless experience for users."
+        }
+      ]
+    },
+    {
+      "title": "4. Booking Page",
+      "blocks": [
+        {
+          "type": "image",
+          "src": "assets/images/gallery14/34dbeace_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Booking page—before"
+        },
+        {
+          "type": "text",
+          "text": "The booking page was too wide, with rows containing up to four fields. I thought the layout didn’t guide the user effectively. A narrower layout with fields stacked vertically would create a more intuitive and focused experience."
+        },
+        {
+          "type": "text",
+          "text": "This deep dive into the guest user journey revealed multiple pain points and opportunities for improvement. By addressing these issues, I aimed to create a smoother, more efficient booking experience that would reduce frustration and increase completion rates."
+        }
+      ]
+    },
+    {
+      "title": "1. Search Bar",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "I reworked the search bar to make it more intuitive and efficient, starting with the following key updates:"
+        }
+      ]
+    },
+    {
+      "title": "A. Provider Field",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "I updated the flow so that when a user searches for a provider and selects them from the dropdown, they’re taken directly to the doctor’s profile page. This eliminated the extra step of hitting “search” and then clicking on the provider again in the results."
+        },
+        {
+          "type": "text",
+          "text": "I also simplified the placeholder text. It originally read, “Provider Specialty/Provider/Org,” but I changed it to “Doctor, specialty.” I’ve been advocating for using “doctor” instead of “provider” across the platform because it’s simpler and resonates better with the average patient."
+        }
+      ]
+    },
+    {
+      "title": "C. Insurance Selection",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "I kept the two-tab layout (carrier and plan) but updated the UI to make it more user-friendly. I alphabetized the list and added a “Popular” section at the top, which displays carriers commonly used in the user’s location."
+        },
+        {
+          "type": "text",
+          "text": "To prevent users from skipping the carrier selection, I made it so they can’t proceed to the “Plans” tab without first choosing a carrier. I also added a sticky “Continue without insurance” button for users who either aren’t sure about their insurance or don’t have it. This gave users more flexibility while maintaining a clear path forward."
+        }
+      ]
+    },
+    {
+      "title": "D. Date Field",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The date field previously auto-filled with the current day in “MM-DD-YYYY” format. I changed it to simply display “Today.” My reasoning was that not all users would immediately recognize the current date, and I wanted to save them the effort of checking their phone or another part of the screen to confirm. “Today” is clear, affirming, and reduces cognitive load."
+        }
+      ]
+    },
+    {
+      "title": "E. Virtual Visit Checkbox",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "I removed this field entirely. Vosita launched in 2020 during the peak of the COVID-19 pandemic, when telemedicine was a top priority. However, as the platform evolved, this checkbox felt like a relic of that time."
+        },
+        {
+          "type": "text",
+          "text": "Since virtual visit options were already available in the filters on the search results page, I decided to remove this checkbox to reduce cognitive load and streamline the search process. My goal was to get patients searching and viewing doctors as quickly as possible."
+        }
+      ]
+    },
+    {
+      "title": "F. Buttons",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "I removed the “More filters” and “Reset” buttons from the search bar. These buttons competed with the “Search” button and weren’t essential to the initial search experience. By eliminating them, I was left with a single, prominent orange “Search” button. This made the interface simpler and more focused, encouraging users to start their search right away."
+        }
+      ]
+    },
+    {
+      "title": "G. Mobile Web Experience",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On mobile, I eliminated the gaps between fields to create a compact search bar that fits above the fold on most devices. On the search results page, I replaced the original search bar (which was identical to the homepage version) with a new sticky bar. This sticky bar displays the appointment type and the number of doctors found, along with a “Filters” button that opens an overlay for adjusting search criteria. This change completely eliminated the confusion users experienced when they didn’t realize they’d been taken to a new page after hitting “Search” on the homepage."
+        },
+        {
+          "type": "text",
+          "text": "The new sticky bar takes up minimal vertical space, allowing the list of providers to be displayed front and center. This aligns better with user expectations and creates a more seamless experience."
+        },
+        {
+          "type": "text",
+          "text": "These updates to the search bar were designed to reduce friction, minimize cognitive load, and get users to their desired results as quickly as possible. By simplifying the interface and streamlining the flow, I aimed to create a more intuitive and efficient booking experience."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/gallery15/ef78ea04_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Homepage search bar—after"
+        }
+      ]
+    },
+    {
+      "title": "2. Search Results Page",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On mobile, vertical space is precious. To optimize the layout, I eliminated the provider summary that was displayed on desktop under each result. Instead, I kept only the essentials: the provider’s photo, name, specialty, location, rating, and available time slots."
+        },
+        {
+          "type": "text",
+          "text": "Time slots were a major space hog, so I reimagined their display. Instead of the 5-column grid used on desktop, I streamlined it to show only the time slots for the day the user searched for, displayed in a single row with side scrolling. This approach minimized vertical space, allowing up to three providers to be displayed at a time. The result? Less scrolling and a more intuitive browsing experience for users."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/gallery06/e405c9b6_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Search results page—after"
+        }
+      ]
+    },
+    {
+      "title": "3. Sign-Up/Login Flow and Credentials Confirmation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "I shifted the flow to assume that guest patients likely didn’t have accounts on Vosita. Now, when users click on a provider’s time slot, they’re taken directly to the sign-up flow instead of being redirected to the login page first."
+        },
+        {
+          "type": "text",
+          "text": "To preserve continuity, I designed a sign-up modal that pops up when a patient selects a time slot. This keeps users on the same page, eliminating the jarring experience of navigating away. I also simplified the sign-up form by removing the “Confirm Password” field, since we already had a “Forgot Password” option on the login page. By default, we now only ask for a mobile number instead of requiring both an email address and a mobile number. Users can optionally add and verify their email later, but the mobile number is sufficient for booking. To make the process even smoother, I added single sign-on (SSO), allowing users to skip filling out fields altogether and go straight to the booking page to confirm their appointment. These changes significantly reduced friction, enabling users to complete the process in fewer steps and with less effort."
+        }
+      ]
+    },
+    {
+      "title": "4. Booking Page",
+      "blocks": [
+        {
+          "type": "image",
+          "src": "assets/images/gallery17/0f8de2ba_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Booking page—after"
+        },
+        {
+          "type": "text",
+          "text": "I completely redesigned the booking page to make it more user-friendly. The new layout is narrower and uses a single-column design, creating a more focused and guided experience."
+        },
+        {
+          "type": "text",
+          "text": "At the top of the page, I added an appointment summary that displays the provider’s details and the selected time slot. Below that, I stacked the fields vertically, grouping them into sections based on the type of information (e.g., personal information and appointment details). Since mobile numbers are now collected and verified during sign-up, the mobile number field is pre-filled, and we no longer ask new users to verify their email. This means most fields are already filled in by the time users reach the booking page. For most patients, it’s as simple as reviewing the summary and hitting “Book Appointment”—done!"
+        },
+        {
+          "type": "text",
+          "text": "These updates to the search results page, sign-up/login flow, and booking page were all aimed at creating a smoother, more intuitive experience for users. By minimizing friction, reducing unnecessary steps, and optimizing the layout, I was able to streamline the entire booking process."
+        }
+      ]
+    },
+    {
+      "title": "1. Total Journey Time",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Before: The average total journey time was 11 minutes, with guest users taking around 13 minutes and logged-in patients taking 11 minutes. The worst-case scenario was 17 minutes."
+        },
+        {
+          "type": "text",
+          "text": "After: The average total journey time dropped to 4.2 minutes, with guest users completing bookings in 4.5 minutes and logged-in patients in 4 minutes. This met our goal of a sub-5-minute booking experience."
+        }
+      ]
+    },
+    {
+      "title": "2. Completion Rates",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Before: Approximately 30% of guest users and 40% of logged-in patients failed to complete bookings on the mobile website and in the app."
+        },
+        {
+          "type": "text",
+          "text": "After: Completion rates improved significantly, with 100% of patients successfully booking appointments."
+        }
+      ]
+    },
+    {
+      "title": "3. User Feedback",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Users reported that the process felt faster, simpler, and more intuitive."
+        },
+        {
+          "type": "text",
+          "text": "The removal of unnecessary steps (e.g., email verification, redundant fields) was particularly well received."
+        },
+        {
+          "type": "text",
+          "text": "The sticky search bar on mobile and the compact provider cards were praised for making the experience more seamless."
+        }
+      ]
+    },
+    {
+      "title": "4. Reduced Cognitive Load",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Simplifying the search bar (e.g., removing the virtual visit checkbox, streamlining insurance selection) led to a noticeable decrease in user confusion."
+        },
+        {
+          "type": "text",
+          "text": "The single-column layout on the booking page and the appointment summary at the top helped users feel more in control of the process."
+        }
+      ]
+    },
+    {
+      "title": "5. Mobile Optimization",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The compact search bar and side-scrolling time slots on mobile reduced scrolling and made the search results page easier to navigate."
+        },
+        {
+          "type": "text",
+          "text": "Users appreciated not being redirected to a new page during the sign-up process, as the modal preserved continuity."
+        }
+      ]
+    },
+    {
+      "title": "1. Assumptions Can Be Powerful (When Validated)",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Assuming that most guest users didn’t have accounts and directing them straight to the sign-up flow proved to be a game-changer. This small shift eliminated unnecessary steps and reduced frustration."
+        }
+      ]
+    },
+    {
+      "title": "2. Less Is More",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Removing non-essential fields (e.g., virtual visit checkbox, confirm password) and simplifying the UI significantly improved the user experience. Users don’t need every option upfront—they just want to complete their task efficiently."
+        }
+      ]
+    },
+    {
+      "title": "3. Mobile-First Design Is Critical",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Optimizing for mobile wasn’t just about aesthetics; it was about respecting users’ time and attention. The sticky search bar and compact provider cards were small changes that had a big impact on usability."
+        }
+      ]
+    },
+    {
+      "title": "4. Continuity Matters",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Keeping users on the same page (e.g., using modals for sign-up instead of redirects) helped maintain focus and reduced the likelihood of drop-offs."
+        }
+      ]
+    }
+  ],
+  "design-system": [
+    {
+      "title": "Overview",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Vosita, a healthcare platform connecting patients with providers, launched in 2020 with a basic, feature-limited product. By 2022, the platform struggled to compete with established players like Zocdoc due to inconsistent design, disorganized assets, and a lack of cohesive branding. I joined the team to lead the redesign effort, known internally as \"Vosita 2.0,\" with the goal of creating a scalable, user-friendly, and visually appealing platform."
+        }
+      ]
+    },
+    {
+      "title": "Scattered and Disorganized Files",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When I joined Vosita, the design files were scattered between Adobe XD and Figma, with most of the work in XD. The team had recently decided to switch to Figma, so newer files were there, but the transition was messy. Since the company had relied heavily on freelancers for UX work before I came on board, files had passed through many hands, leaving things disorganized. Components, auto-layout, and grids were nowhere to be found—everything was manually grouped and placed, making the files a tangled mess."
+        }
+      ]
+    },
+    {
+      "title": "Lack of a Design System",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Without a design system or style guide, inconsistencies were everywhere. Navigation bars, buttons, input fields, headers, footers, breakpoints, margins, border radii, typefaces—you name it—all looked different from page to page. Even basic elements like font weights, colors, sizes, and spacing didn’t match. Global changes were impossible because nothing was tied to components. For important changes, I had to go through all the relevant instances and update them individually. It was clear: Vosita desperately needed a design system and a shared library."
+        }
+      ]
+    },
+    {
+      "title": "Inconsistent Color Palette",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The color palette was another issue. The only consistent colors were Vosita’s green and orange, pulled from the logo. But even these had slight hex code variations, likely because previous designers used the eyedropper tool on logo images. Beyond that, colors were a mess—20+ shades of gray for disabled buttons, 10 reds for errors, 10 greens for buttons, and so on."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/gallery08/38e3ae06_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "1. No auto-layout, no components, 2. Hex code variations of the same colors, 3. Wrong font, inconsistent font color. Click to enlarge image."
+        }
+      ]
+    },
+    {
+      "title": "Version Control Issues",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Version control was a constant struggle. Parts of the same user flow were split between XD and Figma, and even though Figma files were newer, they weren’t always prioritized for implementation. Developers had to switch between the two, often unsure which files were up-to-date and which were obsolete."
+        }
+      ]
+    },
+    {
+      "title": "Discrepancies Between Design and Development",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The live product looked very different from the design references, mostly due to a lack of coordination between designers and front-end developers."
+        }
+      ]
+    },
+    {
+      "title": "A Large and Complex Platform",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Finally, Vosita was already a massive project, catering to patients, independent providers, and medical groups. With features like virtual visits, tiered pricing, and apps for iOS and Android, the platform was massive—and massively inconsistent. On top of that, Vosita was racing to catch up to competitors who’d been in the game for nearly two decades."
+        }
+      ]
+    },
+    {
+      "title": "Balancing Legacy and New Designs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Balancing old and new was tricky. I had to clean up legacy files while simultaneously researching, wireframing, and prototyping new features. Without a design library in place, creating new flows only added to the inconsistency. It was a constant juggle: fixing the past while building the future, all while trying to establish a foundation for consistency."
+        }
+      ]
+    },
+    {
+      "title": "Assessing the Current State",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The first step was migrating everything from Adobe XD to Figma. The project was divided into six files: Provider Flows, Patient Flows, Group Flows, Admin Flows, Informational Pages, and the Mobile App (which included provider, patient, and group flows). I began by comparing versions between Figma and XD, consolidating duplicates, and creating clear naming conventions for each flow. I also organized the files and documented their states—whether they reflected the current production version, were works in progress (WIP), or were outdated and obsolete. To make the design files more accessible, I created a wiki on Azure with links to all the design files. This allowed the development team, QA, BA, and other stakeholders to quickly access the latest designs. By the end of this process, everything was successfully moved to Figma and documented in the wiki. While the transferred files still needed cleanup, having everything in one place was a major milestone."
+        }
+      ]
+    },
+    {
+      "title": "Identifying Inconsistencies",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Next, I tackled the inconsistencies in the design system. The color palette was a mess—Vosita’s green and orange were the primary colors, but their hex codes varied slightly across files. Text colors alternated between navy blue and black, and there were multiple shades of red, gray, and other colors used inconsistently. Typography was equally chaotic, with Poppins used on the website but random sans-serif fonts in marketing materials and the mobile app. Font sizes, weights, and spacing varied wildly from page to page."
+        }
+      ]
+    },
+    {
+      "title": "Planning the Solution",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "I knew I needed to establish a solid foundation before diving into components. I decided to start with the basics: colors, typography, and spacing. I planned to standardize the color palette, define a universal font, and create a type system with consistent sizes, weights, and spacing. I also wanted to introduce variables for primitives and tokens to create a scalable design system."
+        },
+        {
+          "type": "text",
+          "text": "Following Atomic Design principles, I planned to break down the UI into atoms (basic elements like buttons and input fields), molecules (functional groups like search forms), and organisms (larger components like headers and footers). I also envisioned creating templates for reusable page layouts, such as profiles and dashboards, to save time and ensure consistency."
+        }
+      ]
+    },
+    {
+      "title": "Standardizing the Color Palette",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "I began by standardizing the color palette. Vosita’s green and orange were the primary colors, but their hex codes varied slightly across files. I locked down the correct hex codes and ensured they were used consistently. For text, I settled on navy blue to replace the inconsistent use of black. I also introduced three shades of gray for disabled states and a single red for errors, replacing the multiple shades previously in use. Tints and shades of the primary colors were added for hover states, creating a more dynamic yet cohesive visual language."
+        },
+        {
+          "type": "text",
+          "text": "To align the design system with production, I collaborated with the front-end lead. He provided me with all the colors used in the live product, which I mapped to the new palette. This step was crucial because inconsistencies in Figma and XD had spilled over into the live product, as developers were pulling colors directly from the design files. By aligning the design system with production, we drastically reduced the number of colors in use, creating a more unified look."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/gallery03/d9499872_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Standardizing a color palette"
+        }
+      ]
+    },
+    {
+      "title": "Defining Typography",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Typography was next. I chose Open Sans as the universal font across all platforms, replacing the mix of random sans-serif fonts. I established a type system that defined sizes, weights, and spacing for headings, body text, and other elements. I documented guidelines for when and how each typographic style should be used, ensuring clarity and consistency."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/gallery04/897dd2e8_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Defining Typography"
+        }
+      ]
+    },
+    {
+      "title": "Creating Primitives and Tokens",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Before diving into components, I created variables for primitives and tokens. I started with a Primitives collection for colors and spacing. After consulting with the front-end lead, I adopted a 4-point grid system, creating numeric variables in multiples of four for spacing and border radii. I also created a Tokens collection for common design tokens, such as colors and typography, to serve as the foundation for the design system."
+        }
+      ]
+    },
+    {
+      "title": "Building Components with Atomic Design",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Next, I began building components using Atomic Design principles. I started with atoms—basic elements like input fields, dropdown menus, buttons, radio buttons, toggles, tab buttons, icons, scroll bars, checkboxes, and dividers. These atoms formed the building blocks of the design system."
+        },
+        {
+          "type": "text",
+          "text": "From there, I combined atoms into molecules—small, functional groups of UI elements. For example, a search form molecule included a form label, search input, and button. The next level was organisms—larger, more complex components like headers, footers, and pagination modules. While I didn’t have every component figured out from the start, I had enough to begin cleaning up the files and linking everything to tokens and components."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/gallery05/eb948c5c_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Atomic Design in action: combining the “Text Field” and “Dropdown items” components to create a “Dropdown Field” component."
+        }
+      ]
+    },
+    {
+      "title": "Creating Templates for Reusability",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Finally, I created templates—page-level layouts that brought components together and defined the underlying content structure. For example, pages like Terms, Privacy Policy, Contact, and Pricing shared the same basic design, differing only in content. By creating a template for these, I saved significant time and made global changes much easier. Similarly, patient, provider, and group profiles followed the same structure, so I built a template for those. Public profiles for providers and groups also shared a common layout, as did the dashboards for patients, providers, and groups. These templates not only streamlined the design process but also ensured consistency across the platform."
+        },
+        {
+          "type": "text",
+          "text": "This approach—starting with atoms, building up to molecules and organisms, and finally creating templates—allowed me to systematically clean up the files while maintaining flexibility for future updates. It was a balancing act, but one that ultimately brought order to the chaos and set the stage for a scalable, cohesive design system."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/gallery01/a4576f3d_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Privacy Policy, Terms, BA Agreement, Pricing, and Specialties pages all shared the same template."
+        }
+      ]
+    },
+    {
+      "title": "Testing and Validation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With the design system in place, the next step was to validate its effectiveness. I conducted usability testing to ensure the new components and templates worked as intended. This involved creating designs and prototypes using the updated design system."
+        },
+        {
+          "type": "text",
+          "text": "Usability testing also included the front-end and QA teams to ensure the design system aligned with development workflows. The feedback received emphasized the improved consistency and ease of navigation."
+        }
+      ]
+    },
+    {
+      "title": "Iterating Based on Feedback",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The feedback loop was crucial. As I worked on new designs or cleaned up old files, I continuously refined the component library. If I noticed a component was missing a Boolean property or a variant, or had unnecessary complexity, I’d go back and optimize it. This iterative process ensured the library evolved alongside the project, staying flexible and efficient."
+        },
+        {
+          "type": "text",
+          "text": "For example, during testing, I discovered that some components, like dropdown menus and input fields, needed additional states to handle edge cases. I updated these components and documented the changes in the design system guidelines."
+        }
+      ]
+    },
+    {
+      "title": "Measuring Success",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To measure the impact of the design system, I tracked key metrics such as development speed, consistency across the platform, and user satisfaction. Developers reported that the new system significantly reduced the time required to implement new features, as they no longer had to manually adjust styles or behaviors. The QA team also noted fewer inconsistencies between the design files and the live product, reducing the number of bugs reported."
+        }
+      ]
+    },
+    {
+      "title": "Documenting and Sharing Knowledge",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To ensure the design system’s longevity, I created comprehensive documentation, including guidelines for using components, templates, and design tokens."
+        },
+        {
+          "type": "text",
+          "text": "I introduced the team to the \"Ready for Dev\" mark in Figma, a simple yet effective way to indicate when a design was finalized and ready for implementation. This streamlined communication between designers and developers, reducing back-and-forth and ensuring everyone was on the same page."
+        }
+      ]
+    },
+    {
+      "title": "Ongoing Maintenance and Scalability",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The design system was designed to grow with Vosita. I established a process for adding new components and updating existing ones, ensuring the system remained scalable and adaptable. Regular reviews and audits were scheduled to identify areas for improvement and address any emerging inconsistencies."
+        },
+        {
+          "type": "text",
+          "text": "By the end of the project, Vosita had a robust, scalable design system that brought order to the chaos. The platform was not only visually consistent but also more efficient to develop and maintain. The design system became a cornerstone of Vosita’s product strategy, enabling the team to focus on innovation and user experience rather than wrestling with inconsistencies."
+        }
+      ]
+    }
+  ],
+  "provider-profile": [
+    {
+      "title": "Overview",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When I first looked at Vosita's provider profiles in late 2022, I immediately noticed how much mental effort it took to find basic information. Navigating the dense, unstructured information was a struggle. The existing design didn’t support how people actually research healthcare providers. They needed clearer pathways to key information and booking."
+        }
+      ]
+    },
+    {
+      "title": "The Challenge",
+      "blocks": [
+        {
+          "type": "list",
+          "text": "",
+          "items": [
+            "Important details like specialties and availability were hard to find in the wide, two-column layout.",
+            "The booking CTA disappeared as users scrolled.",
+            "Reading reviews required leaving the page, disrupting the decision-making process."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "What I observed in testing",
+      "blocks": [
+        {
+          "type": "image",
+          "src": "assets/images/gallery07/4cda5480_original.jpg"
+        },
+        {
+          "type": "text",
+          "text": "Provider Profile—before"
+        },
+        {
+          "type": "text",
+          "text": "User testing sessions revealed consistent patterns. People’s eyes darted across the wide layout as they struggled to build a complete picture of the provider. Many missed the booking option entirely after scrolling, while others abandoned the process when reviews opened in a new tab."
+        },
+        {
+          "type": "text",
+          "text": "We also discovered that providers with longer bios actually had lower conversion rates, suggesting our information hierarchy was broken."
+        },
+        {
+          "type": "text",
+          "text": "The original profile had:"
+        },
+        {
+          "type": "list",
+          "text": "",
+          "items": [
+            "A wide header with the provider’s name and a non-sticky \"Availability\" button.",
+            "A small left column with the bio and map.",
+            "A wide right column with scattered details and reviews at the very bottom."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Key Pain Points:"
+        },
+        {
+          "type": "list",
+          "text": "",
+          "items": [
+            "Users missed the booking CTA after scrolling.",
+            "Reviews were buried.",
+            "Mobile users had to scroll excessively."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Designing a clearer profile",
+      "blocks": [
+        {
+          "type": "embed",
+          "src": "https://embed.figma.com/proto/DBAhKbPR1oNM6qNVRld97r/Portfolio%E2%80%94Vosita?node-id=401-9477&scaling=scale-down-width&content-scaling=fixed&page-id=401%3A2744&starting-point-node-id=401%3A9477&embed-host=share"
+        },
+        {
+          "type": "text",
+          "text": "The redesign focused on creating a clear information hierarchy. I moved from the sprawling two-column layout to a more structured single-column approach with a persistent sidebar. This kept the provider's core information and booking CTA always accessible. Key improvements included:"
+        },
+        {
+          "type": "list",
+          "text": "",
+          "items": [
+            "A fixed sidebar kept booking options visible as users scrolled.",
+            "Integrated reviews expanded in place, so users did not have to navigate away.",
+            "The mobile experience prioritized key information, and a “Back to top” feature helped users navigate long review sections.",
+            "For mobile, I collapsed secondary information into expandable sections so patients could focus on what mattered most when making their decision."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Post-launch observations showed noticeable improvements:",
+      "blocks": [
+        {
+          "type": "list",
+          "text": "",
+          "items": [
+            "More users were reaching the booking confirmation page.",
+            "Providers reported increased profile engagement.",
+            "Providers appreciated the more professional presentation of their information.",
+            "This project reinforced how important information design is in healthcare. When we make interfaces clearer, we help people make better decisions about their care."
+          ]
+        }
+      ]
+    }
+  ]
+}
